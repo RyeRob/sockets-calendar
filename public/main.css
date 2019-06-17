@@ -1,0 +1,12 @@
+.calendar, td {
+  border:1px solid #000;
+  margin:0 auto;
+}
+h1 {
+  text-align:center;
+  color:#3399ff;
+}
+.cal-btn {
+  text-align:center;
+  padding-top:3rem;
+}

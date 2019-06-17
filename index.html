@@ -4,10 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Community Calendar</title>
+    <title>Calendar</title>
+    <link href="/public/main.css" rel="stylesheet" type="text/css">
 </head>
 <body>
     <h1>Calendar</h1>
+    <table class="calendar">
+      <thead>
+        <td>Monday</td>
+        <td>Tuesday</td>
+        <td>Wednesday</td>
+        <td>Thursday</td>
+        <td>Friday</td>
+        <td>Saturday</td>
+        <td>Sunday</td>
+      </thead>
+      <tbody>
+        
+      </tbody>
+    </table>
+    <div class="cal-btn">
+        <button>Prev</button>
+        <button>Next</button>
+    </div>
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var socket = io();
