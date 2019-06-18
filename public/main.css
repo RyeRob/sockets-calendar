@@ -1,12 +1,33 @@
-.calendar, td {
-  border:1px solid #000;
-  margin:0 auto;
+*{
+  box-sizing: border-box;
+  margin:0;
+  padding:0;
+}
+#calendar {
+  margin: 0 auto;
+  table-layout: fixed;
+  border-collapse: collapse;
+  border:1px #000 solid;
 }
 h1 {
   text-align:center;
   color:#3399ff;
 }
+h2 {
+  text-align:center;
+}
 .cal-btn {
   text-align:center;
-  padding-top:3rem;
+  padding:3rem;
+}
+.today {
+  background-color: rgb(252, 253, 175);
+}
+#calendar > tr > td {
+  padding: 1rem 1.5rem 3.5rem 6rem;
+  border: 1px #000 solid;
+  cursor:pointer;
+}
+#calendar > tr > td:hover {
+  background-color:#999;
 }

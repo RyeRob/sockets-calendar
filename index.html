@@ -9,27 +9,27 @@
 </head>
 <body>
     <h1>Calendar</h1>
-    <table class="calendar">
+    <h2 id="displayDate"></h2>
+    <div class="cal-btn">
+      <button onclick="prevMonth()">Prev</button>
+      <button onclick="nextMonth()">Next</button>
+    </div>
+    <table class="calendar" id="calendar">
       <thead>
+        <td>Sunday</td>
         <td>Monday</td>
         <td>Tuesday</td>
         <td>Wednesday</td>
         <td>Thursday</td>
         <td>Friday</td>
         <td>Saturday</td>
-        <td>Sunday</td>
       </thead>
-      <tbody>
-        
-      </tbody>
+      <tbody></tbody>
     </table>
-    <div class="cal-btn">
-        <button>Prev</button>
-        <button>Next</button>
-    </div>
+    <script src="/public/main.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-        var socket = io();
+      var socket = io();
     </script>
 </body>
 </html>
