@@ -11,25 +11,31 @@
     <h1>Calendar</h1>
     <h2 id="displayDate"></h2>
     <div class="cal-btn">
-      <button onclick="prevMonth()">Prev</button>
-      <button onclick="nextMonth()">Next</button>
+      <button class="btn" onclick="prevMonth()">Prev</button>
+      <button class="btn" onclick="nextMonth()">Next</button>
     </div>
-    <table class="calendar" id="calendar">
+    <table class="calendar">
       <thead>
-        <td>Sunday</td>
-        <td>Monday</td>
-        <td>Tuesday</td>
-        <td>Wednesday</td>
-        <td>Thursday</td>
-        <td>Friday</td>
-        <td>Saturday</td>
+        <tr>
+          <td>Sunday</td>
+          <td>Monday</td>
+          <td>Tuesday</td>
+          <td>Wednesday</td>
+          <td>Thursday</td>
+          <td>Friday</td>
+          <td>Saturday</td>
+        </tr>
       </thead>
-      <tbody></tbody>
+      <tbody id="calendarBody">
+
+      </tbody>
     </table>
-    <script src="/public/main.js"></script>
+    <div id="selected-date"></div>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
       var socket = io();
     </script>
+    <script src="/public/main.js"></script>
 </body>
 </html>

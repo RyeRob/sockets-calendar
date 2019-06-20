@@ -3,11 +3,14 @@
   margin:0;
   padding:0;
 }
-#calendar {
+.calendar {
   margin: 0 auto;
   table-layout: fixed;
   border-collapse: collapse;
   border:1px #000 solid;
+}
+.calendar > thead > tr > td {
+  text-align: center;
 }
 h1 {
   text-align:center;
@@ -23,11 +26,45 @@ h2 {
 .today {
   background-color: rgb(252, 253, 175);
 }
-#calendar > tr > td {
-  padding: 1rem 1.5rem 3.5rem 6rem;
+.nonDate {
+  background-color: rgb(252, 253, 175);
+}
+#calendarBody > tr > td {
+  padding: 0.2rem 0.2rem 5rem 5rem;
   border: 1px #000 solid;
   cursor:pointer;
 }
-#calendar > tr > td:hover {
-  background-color:#999;
+#calendarBody > tr > td:hover {
+  background-color:#777;
+  color:#fff;
 }
+#calendarBody > tr > td:selected {
+  background-color:#777;
+  color:#fff;
+}
+
+.btn {
+  padding: 1rem 4rem;
+  margin:1rem;
+  background-color:#3399ff;
+  border:none;
+  color:#fff;
+  border-radius:15px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.btn:hover{
+  background-color:#fff;
+  box-shadow:0 0 0 1px #3399ff;
+  color:#3399ff;
+}
+/* .modal {
+  position:fixed;
+  z-index:1;
+  left:0;
+  top:0;
+  height:100vh;
+  width:100vw;
+  overflow:auto;
+  background-color:rgba(0, 0, 0, 0.5)
+} */
