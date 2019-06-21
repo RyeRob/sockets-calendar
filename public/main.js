@@ -1,6 +1,6 @@
-// help from the following sources:
+// help from:
 // 1 https://medium.com/@nitinpatel_20236/challenge-of-building-a-calendar-with-pure-javascript-a86f1303267d
-// https://www.youtube.com/watch?v=6ophW7Ask_0&t=1123s
+// 2 https://www.youtube.com/watch?v=6ophW7Ask_0&t=1123s
 
 const today = new Date();
 let currentMonth = today.getMonth();
@@ -8,6 +8,17 @@ let currentYear = today.getFullYear();
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const dateDisplay = document.getElementById('displayDate');
 
+//get elements
+let modal = document.getElementById('modal');
+let status = document.getElementById('status');
+let lastDate = document.getElementById('last-date');
+let userCount = document.getElementById('user-count');
+let roomDisplay = document.getElementById('room-number');
+let currentUsername = document.getElementById('current-username');
+
+let username = document.getElementById('username').value;
+
+var socket = io();
 
 // generate calendar
 function showCalendar(month, year) {
@@ -58,9 +69,9 @@ function showCalendar(month, year) {
     table.appendChild(row);
   }
 }
-
 showCalendar(currentMonth, currentYear);
 
+// calculate next or previous month then call calendar again
 function nextMonth() {
   currentYear = (currentMonth === 11) ? currentYear + 1 : currentYear;
   currentMonth = (currentMonth + 1) % 12;
@@ -74,87 +85,98 @@ function prevMonth() {
 
 // function that executes when cell is clicked
 function createCellDate(cellDate) {
-  //modal.style.display = 'block';
   let entry = new Object();
   entry.day = cellDate;
   entry.month = currentMonth;
   entry.year = currentYear;
   
-  let clickedCell = document.getElementsByClassName('cell' + cellDate);
 
+  // logic to append locally, broadcast kept adding to sender as well
 
-  marker = document.createElement('div');
-  marker.classList.add('markerStyle');
-
-  var markerCheck = document.body.querySelector("div[class='markerStyle']");
-  if (toString(markerCheck) == clickedCell[0]){
-    console.log('no');
-  } else {
-    console.log('yes');
-  }
-
-  clickedCell[0].appendChild(marker);
+  // let clickedCell = document.getElementsByClassName('cell' + cellDate);
+  // marker = document.createElement('div');
+  // marker.classList.add('markerStyle');
+  // let markerCheck = document.body.querySelector("div[class='markerStyle']");
+  // clickedCell[0].appendChild(marker);
 
   var socket = io();
   socket.emit('calendarEntry', entry);
 }
 
-// --- socket.io ---
+// trying to set username (not working properly)
+const setUsername = (username) => {
 
-
-socket.on('calendarEntry', function (entry) {
-  cell.innerHTML = entry.day + ' ' + entry.month;
-});
-
-socket.on('user joined', function(totalUsers) {
-  let userCount = document.getElementById('user-count');
-  userCount.innerHTML = totalUsers;
-});
-
-socket.on('connectToRoom',function(roomno) {
-  let roomDisplay = document.getElementById('room-number');
-  roomDisplay.innerHTML = 'Room: ' + roomno;
-});
-
-socket.on('userdissconnect', function(){
-
-});
-
-
-const setUsername = () => {
-  username = cleanInput($usernameInput.val().trim());
-
-  // If the username is valid
-  if (username) {
-    // tell the server the username
-    socket.emit('add user', username);
-  }
+  socket.emit('add user', username);
+  modal.style.display = 'none';
 }
 
+// showing the total users in your room
+const showTotalUsers = (data) => {
+  let message = '';
+  if (data.numUsers === 1) {
+    message += "It's only you.";
+  } else {
+    message += "There are " + data.numUsers + " people in this room.";
+  }
+  userCount.innerHTML = message;
+}
 
+socket.on('login', (data) => {
+  connected = true;
+  var message1 = "Welcome – " + socket.username;
+  currentUsername.innerHTML = message1;
+  showTotalUsers(data);
+});
 
+socket.on('user joined', (data) => {
+  status.innerHTML = data.username + ' joined';
+  showTotalUsers(data);
+});
 
+ socket.on('user left', (data) => {
+  status.innerHTML = data.username + ' has left.';
+  showTotalUsers(data);
+});
+// custom calendar event, should place marker where someone else did and show the date
+// of last placed marked in the first non date cell of the calendar
+socket.on('calendarEntry', function (entry) {
+  lastDate.innerHTML = entry.day + ' ' + entry.month + ' ' + entry.year + ' was the last date selected.';
+  marker = document.createElement('div');
+  marker.classList.add('markerStyle');
+  var dayToMark = document.getElementsByClassName("cell" + entry.day);
+  dayToMark[0].appendChild(marker);
+});
 
-// let addBtn = document.getElementById('add-btn');
-// addBtn.addEventListener('click', function(){
+// connection and room status messages
+socket.on('connectToRoom',function(data) {
+  roomDisplay.innerHTML = 'Room: ' + data;
+});
 
+socket.on('disconnect', () => {
+  status.innerHTML = 'You have been disconnected.'
+});
 
+socket.on('reconnect', () => {
+  status.innerHTML = 'You have been reconnected.';
+  if (username) {
+    socket.emit('add user', username);
+  }
+});
+
+socket.on('reconnect_error', () => {
+  log('attempt to reconnect has failed');
+});
+
+// var user;
+// socket.on('userExists', function(data){
+//   document.getElementById('error-display').innerHTML = data;
+// });
+// socket.on('userSet', function(data){
+//   user = data.username;
 // });
 
-// modal stuffs
-let modal = document.getElementById('modal');
-
-//close modal
+//close modal button
 var closeModalBtn = document.getElementById('modalCloseBtn');
 closeModalBtn.addEventListener('click', function(){
   modal.style.display = 'none';
 });
-
-// get modal form feilds and fill with object data
-// let dayInput = document.getElementById('day-input');
-// let monthInput = document.getElementById('month-input');
-// let yearInput = document.getElementById('year-input');
-// dayInput.innerHtml = entry.day;
-// monthInput.innerHtml = entry.month;
-// yearInput.innerHtml = entry.year;
-

@@ -8,14 +8,23 @@
     <link href="/public/main.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <div id="room-number"></div>
-    <h1>Calendar</h1>
-    <a href="public/main.html">main</a>
-    <h2 id="displayDate"></h2>
-    <div class="cal-btn">
-      <button class="btn" onclick="prevMonth()">Prev</button>
-      <button class="btn" onclick="nextMonth()">Next</button>
-    </div>
+    <header>
+      <h1>Calendar</h1>
+      <div class="info-display">
+          <div id="room-number"></div>
+          <div id="user-count"></div>
+          <div id="current-username"></div>
+          <div id="status"></div>
+        </div>
+      <a href="public/main.html">Alternate Namespace</a>
+      <h2 id="displayDate"></h2>
+      <div class="cal-btn">
+        <button class="btn" onclick="prevMonth()">Prev</button>
+        <button class="btn" onclick="nextMonth()">Next</button>
+      </div>
+      <div id="last-date"></div>
+    </header>
+    <!-- Calendar Area -->
     <table class="calendar">
       <thead>
         <tr>
@@ -32,32 +41,24 @@
 
       </tbody>
     </table>
-    <div id="user-count"></div>
+    <!-- Chat Area -->
+    <div id="chat-area">
+      <div id='chat-window'>
+        <div id="chat-display"></div>
+      </div>
+    </div>
+    <!-- Sign In Modal -->
     <div id="modal" class="modal">
       <div class="modal-content">
         <span id="modalCloseBtn">&times;</span>
-        <form action="" method="POST" onsubmit="go()" id="form">
-          <div>
-              <label for="title">Title: </label>
-              <input type="text" id="title">
-          </div>
-          <div>
-              <label for="title">Description: </label>
-              <input type="text" id="title">
-          </div>
-          <div>
-            <input type="number" min="1" max="31" id="day-input">
-            <input type="number" min="1" max="12" id="month-input">
-            <input type="number" min="2019" max="3000" id="year-input">
-          </div>
-          <button id="addBtn">Add</button>
-        </form>
+        <label for="title">Name: </label>
+        <input type="text" id="username" name="username" value="">
+        <div id="error-display"></div>
+        <button type="button" name="username-button" onclick="setUsername()">Enter</button>
       </div>
     </div>
+    <!-- Scripts -->
     <script src="/socket.io/socket.io.js"></script>
-    <script>
-      const socket = io();
-    </script>
     <script src="/public/main.js"></script>
 </body>
 </html>
