@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Another</title>
+  <link href="/public/main.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+  <a href="/">back</a>
+  <div id="room-number"></div>
+    <h1>Calendar</h1>
+    <h2 id="displayDate"></h2>
+    <div class="cal-btn">
+      <button class="btn" onclick="prevMonth()">Prev</button>
+      <button class="btn" onclick="nextMonth()">Next</button>
+    </div>
+  <table class="calendar">
+    <thead>
+      <tr>
+        <td>Sunday</td>
+        <td>Monday</td>
+        <td>Tuesday</td>
+        <td>Wednesday</td>
+        <td>Thursday</td>
+        <td>Friday</td>
+        <td>Saturday</td>
+      </tr>
+    </thead>
+    <tbody id="calendarBody">
+
+    </tbody>
+  </table>
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  const socket = io('/main'); 
+</script>
+<script src="/public/main.js"></script>
+</html>
