@@ -164,7 +164,7 @@ socket.on('reconnect', () => {
 });
 
 socket.on('reconnect_error', () => {
-  log('attempt to reconnect has failed');
+  status.innerHTML = 'attempt to reconnect has failed';
 });
 
 // var user;
