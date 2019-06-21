@@ -8,7 +8,7 @@ var path = require('path');
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 var favicon = require('serve-favicon');
-var port = process.env.PORT || 3000;
+var port = 'https://socket-calendar.netlify.com/socket.io/?EIO=3&transport=polling&t=Mjxrrqv' || 3000;
 
 
 //serve favicon
