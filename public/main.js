@@ -18,7 +18,7 @@ let currentUsername = document.getElementById('current-username');
 
 let username = document.getElementById('username').value;
 
-var socket = io('/');
+var socket = io('https://socket-calendar.netlify.com/');
 
 // generate calendar
 function showCalendar(month, year) {
