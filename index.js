@@ -5,7 +5,7 @@
 var express = require('express');
 var app = express();
 var path = require('path');
-const server = require('http').createServer(app);
+const server = require('http').Server(app);
 const io = require('socket.io')(server);
 var favicon = require('serve-favicon');
 var port = process.env.PORT || 3000;
@@ -76,13 +76,13 @@ io.on('connection', function(socket){
   io.sockets.in("room-"+roomno).emit('connectToRoom', roomno);
 });
 
-//alternate namespace called main
+// alternate namespace called main
 const nsp = io.of('/main');
 nsp.on('connection', function(socket){
   console.log('connected to main');
 });
 
-//listen at port 3000
+// listen at port 3000
 server.listen(port, function(){
   console.log('listening on *:3000');
 });
